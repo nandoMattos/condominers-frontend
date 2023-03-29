@@ -1,14 +1,16 @@
-import { ChangeEvent, ChangeEventHandler, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../assets/styles/Button";
+import { loginAsResident } from "../../helpers/api/auth";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function FormResident() {
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
-  console.log(form);
 
   function handleForm(e: React.ChangeEvent<HTMLInputElement>) {
     setForm({
@@ -17,15 +19,29 @@ export default function FormResident() {
     });
   }
 
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    try {
+      const data = await loginAsResident(form);
+      console.log(data);
+    } catch (err: any) {
+      console.log(err);
+      if (err.response.status == 401)
+        return toast.warning("Email ou senha inválidos");
+      return toast.warn("Algo de errado, tente novamente mais tarde");
+    }
+  }
+
   return (
     <FormContainer>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <input
           value={form.email}
-          type="text"
+          type="email"
           name="email"
           placeholder="email"
           onChange={handleForm}
+          required
         />
         <input
           value={form.password}
@@ -33,9 +49,14 @@ export default function FormResident() {
           name="password"
           placeholder="senha"
           onChange={handleForm}
+          required
+          minLength={5}
         />
-        <Button width="100%">Entrar</Button>
-        Não tem uma conta? Cadastre-se <Link to="a">aqui</Link>
+        <Button type="submit" width="100%">
+          Entrar como morador
+        </Button>
+        <ToastContainer />
+        Não possui uma conta? Cadastre-se <Link to="a">aqui</Link>
       </Form>
     </FormContainer>
   );

@@ -4,6 +4,8 @@ import { MAIN_COLOR, SECONDARY_COLOR } from "../../assets/colors";
 import Button from "../../assets/styles/Button";
 import FormOwner from "./FormOwner";
 import FormResident from "./FormResident";
+import DoubleButton from "./DoubleButton";
+import { gapi } from "gapi-script";
 
 export default function AuthPage() {
   const [isResident, setIsResident] = useState<undefined | boolean>(undefined);
@@ -27,7 +29,7 @@ export default function AuthPage() {
             descricao foda
           </p> */}
           <FormWraper>
-            <h2>Selecione uma opção:</h2>
+            <h2>Selecione uma opção de login:</h2>
             <Fixed>
               <Button width="200px" onClick={() => changeToOwner()}>
                 Sou proprietário

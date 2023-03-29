@@ -1,15 +1,22 @@
-import { PropsWithChildren } from "react";
+import { HTMLAttributes, PropsWithChildren } from "react";
 import styled from "styled-components";
 
 export interface BtnProps extends PropsWithChildren {
   onClick?: () => void;
+  type?: "button" | "submit" | "reset" | undefined;
   width?: string;
   height?: string;
 }
 
-export default function Button({ children, width, height, onClick }: BtnProps) {
+export default function Button({
+  type,
+  children,
+  width,
+  height,
+  onClick,
+}: BtnProps) {
   return (
-    <GenButton onClick={onClick} width={width} height={height}>
+    <GenButton type={type} onClick={onClick} width={width} height={height}>
       {children}
     </GenButton>
   );

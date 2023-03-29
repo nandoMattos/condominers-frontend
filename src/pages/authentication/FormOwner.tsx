@@ -38,12 +38,11 @@ export default function FormOwner() {
         <input
           value={form.token}
           type="password"
-          name="password"
-          placeholder="token"
+          name="token"
+          placeholder="chave de acesso"
           onChange={handleForm}
         />
-        <Button width="100%">Entrar</Button>
-        Não tem uma conta? Cadastre-se <Link to="a">aqui</Link>
+        <Button width="100%">Entrar como proprietáio</Button>
       </Form>
     </FormContainer>
   );

@@ -5,11 +5,27 @@ interface residentLoginBody {
   password: string
 }
 
+interface ownerLoginBody extends residentLoginBody{ 
+  token: string
+}
+
 export async function loginAsResident(body: residentLoginBody) {
   try{
-    const a = await axios.post(`${import.meta.env.VITE_URL_API}/auth/sign-in`, body);
-    console.log(a);
+    const {data} = await axios.post(`${import.meta.env.VITE_URL_API}/auth/sign-in`, body);
+    localStorage.setItem("userInfo", JSON.stringify(data))
+    return data
   } catch (err) {
+    throw err;
+  }
+}
+
+export async function loginAsOwner(body: ownerLoginBody) {
+  try {
+    const {data} = await axios.post(`${import.meta.env.VITE_URL_API}/auth/sign-in/owner`, body)
+    localStorage.setItem("userInfo", JSON.stringify(data))
+
+    return data;
+  }catch(err) {
     throw err;
   }
 }

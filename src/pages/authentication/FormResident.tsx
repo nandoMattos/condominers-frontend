@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../assets/styles/Button";
 import { loginAsResident } from "../../helpers/api/auth";
@@ -12,6 +12,8 @@ export default function FormResident() {
     password: "",
   });
 
+  const navigate = useNavigate();
+
   function handleForm(e: React.ChangeEvent<HTMLInputElement>) {
     setForm({
       ...form,
@@ -21,9 +23,10 @@ export default function FormResident() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
     try {
-      const data = await loginAsResident(form);
-      console.log(data);
+      await loginAsResident(form);
+      navigate("/");
     } catch (err: any) {
       console.log(err);
       if (err.response.status == 401)
@@ -55,7 +58,6 @@ export default function FormResident() {
         <Button type="submit" width="100%">
           Entrar como morador
         </Button>
-        <ToastContainer />
         Não possui uma conta? Cadastre-se <Link to="a">aqui</Link>
       </Form>
     </FormContainer>

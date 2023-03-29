@@ -4,8 +4,6 @@ import { MAIN_COLOR, SECONDARY_COLOR } from "../../assets/colors";
 import Button from "../../assets/styles/Button";
 import FormOwner from "./FormOwner";
 import FormResident from "./FormResident";
-import DoubleButton from "./DoubleButton";
-import { gapi } from "gapi-script";
 
 export default function AuthPage() {
   const [isResident, setIsResident] = useState<undefined | boolean>(undefined);

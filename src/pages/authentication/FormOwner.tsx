@@ -1,6 +1,8 @@
-import { ChangeEvent, ChangeEventHandler, useState } from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import Button from "../../assets/styles/Button";
+import { loginAsOwner } from "../../helpers/api/auth";
 import { Form, FormContainer } from "./FormResident";
 
 export default function FormOwner() {
@@ -9,7 +11,7 @@ export default function FormOwner() {
     password: "",
     token: "",
   });
-  console.log(form);
+  const navigate = useNavigate();
 
   function handleForm(e: React.ChangeEvent<HTMLInputElement>) {
     setForm({
@@ -18,15 +20,29 @@ export default function FormOwner() {
     });
   }
 
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+
+    try {
+      await loginAsOwner(form);
+      navigate("/");
+    } catch (err: any) {
+      if (err.response.status == 401)
+        return toast.warning("Email ou senha inválidos");
+      return toast.warn("Algo de errado, tente novamente mais tarde");
+    }
+  }
+
   return (
     <FormContainer>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <input
           value={form.email}
-          type="text"
+          type="email"
           name="email"
           placeholder="email"
           onChange={handleForm}
+          required
         />
         <input
           value={form.password}
@@ -34,6 +50,8 @@ export default function FormOwner() {
           name="password"
           placeholder="senha"
           onChange={handleForm}
+          required
+          minLength={5}
         />
         <input
           value={form.token}
@@ -41,8 +59,11 @@ export default function FormOwner() {
           name="token"
           placeholder="chave de acesso"
           onChange={handleForm}
+          required
         />
-        <Button width="100%">Entrar como proprietáio</Button>
+        <Button type="submit" width="100%">
+          Entrar como proprietáio
+        </Button>
       </Form>
     </FormContainer>
   );

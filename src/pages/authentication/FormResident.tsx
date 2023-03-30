@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../assets/styles/Button";
 import { loginAsResident } from "../../helpers/api/auth";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function FormResident() {
   const [form, setForm] = useState({
@@ -13,6 +14,7 @@ export default function FormResident() {
   });
 
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
   function handleForm(e: React.ChangeEvent<HTMLInputElement>) {
     setForm({
@@ -25,7 +27,8 @@ export default function FormResident() {
     e.preventDefault();
 
     try {
-      await loginAsResident(form);
+      const data = await loginAsResident(form);
+      setUser(data.user);
       navigate("/");
     } catch (err: any) {
       console.log(err);

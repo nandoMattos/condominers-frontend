@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Button from "../../assets/styles/Button";
+import { UserContext } from "../../contexts/UserContext";
 import { loginAsOwner } from "../../helpers/api/auth";
 import { Form, FormContainer } from "./FormResident";
 
@@ -12,6 +13,7 @@ export default function FormOwner() {
     token: "",
   });
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
   function handleForm(e: React.ChangeEvent<HTMLInputElement>) {
     setForm({
@@ -24,7 +26,8 @@ export default function FormOwner() {
     e.preventDefault();
 
     try {
-      await loginAsOwner(form);
+      const data = await loginAsOwner(form);
+      setUser(data.user);
       navigate("/");
     } catch (err: any) {
       if (err.response.status == 401)

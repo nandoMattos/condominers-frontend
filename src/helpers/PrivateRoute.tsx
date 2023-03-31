@@ -1,8 +1,10 @@
 import { Navigate, Outlet } from "react-router-dom";
 
 interface userInfo {
+  id: number;
   name: string;
   email: string;
+  type: "OWNER" | "RESIDENT";
 }
 
 interface LoginPayload {

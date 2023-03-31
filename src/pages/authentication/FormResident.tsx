@@ -5,7 +5,7 @@ import Button from "../../assets/styles/Button";
 import { loginAsResident } from "../../helpers/api/auth";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { UserContext } from "../../contexts/UserContext";
+import { UserContext, UserContextType } from "../../contexts/UserContext";
 
 export default function FormResident() {
   const [form, setForm] = useState({
@@ -14,7 +14,7 @@ export default function FormResident() {
   });
 
   const navigate = useNavigate();
-  const { setUser } = useContext(UserContext);
+  const { setUserInfo } = useContext(UserContext) as UserContextType;
 
   function handleForm(e: React.ChangeEvent<HTMLInputElement>) {
     setForm({
@@ -28,7 +28,7 @@ export default function FormResident() {
 
     try {
       const data = await loginAsResident(form);
-      setUser(data.user);
+      setUserInfo(data);
       navigate("/");
     } catch (err: any) {
       console.log(err);

@@ -5,9 +5,12 @@ const GlobalStyle = createGlobalStyle`
   * {
     font-family: 'Varela', sans-serif;
     box-sizing: border-box;
-    transition: all ease .2s;
+    /* transition: all ease .2s;   */
   }
 
+  body{
+    height: 100vh;
+  }
   
 `;
 

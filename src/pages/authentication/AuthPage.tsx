@@ -50,7 +50,7 @@ export default function AuthPage() {
   );
 }
 
-const Page = styled.div`
+export const Page = styled.div`
   background-color: ${MAIN_COLOR};
   height: 100vh;
   color: white;
@@ -104,6 +104,8 @@ const Fixed = styled.div`
 
 const FormContainer = styled.div<{ heigth: string }>`
   margin-top: 20px;
+  transition: all ease 0.2s;
+
   width: 60%;
   height: ${({ heigth }) => heigth};
   input {

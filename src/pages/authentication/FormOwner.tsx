@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Button from "../../assets/styles/Button";
-import { UserContext } from "../../contexts/UserContext";
+import { UserContext, UserContextType } from "../../contexts/UserContext";
 import { loginAsOwner } from "../../helpers/api/auth";
 import { Form, FormContainer } from "./FormResident";
 
@@ -13,7 +13,7 @@ export default function FormOwner() {
     token: "",
   });
   const navigate = useNavigate();
-  const { setUser } = useContext(UserContext);
+  const { setUserInfo } = useContext(UserContext) as UserContextType;
 
   function handleForm(e: React.ChangeEvent<HTMLInputElement>) {
     setForm({
@@ -24,10 +24,9 @@ export default function FormOwner() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-
     try {
       const data = await loginAsOwner(form);
-      setUser(data.user);
+      setUserInfo(data);
       navigate("/");
     } catch (err: any) {
       if (err.response.status == 401)

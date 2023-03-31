@@ -5,7 +5,7 @@ export type User = {
   id: number;
   name: string;
   email: string;
-  type: string;
+  ownerToken?: string;
 };
 
 export type UserInfoType = {

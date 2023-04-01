@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { joinApartament } from "../../helpers/api/apartaments";
 import { toast } from "react-toastify";
 import BaseStructure from "../home/BaseStructure";
-import Button from "../../assets/styles/Button";
 import Header from "../../components/Header";
 
 export default function ApartamentInvite() {

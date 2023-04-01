@@ -7,7 +7,6 @@ import { ResidentUser } from "../../protocols";
 import { MAIN_COLOR, SECONDARY_COLOR } from "../../assets/colors";
 import IonIcon from "@reacticons/ionicons";
 import { toast } from "react-toastify";
-import { Oval } from "react-loader-spinner";
 import LoadingCircle from "../../components/LoadingCircle";
 
 export default function ResidentPage() {

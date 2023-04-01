@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import GlobalStyle from "./assets/styles/GlobalStyle";
@@ -7,10 +6,9 @@ import UserProvider from "./contexts/UserContext";
 import PrivateRoute from "./helpers/PrivateRoute";
 import AuthPage from "./pages/authentication/AuthPage";
 import HomePage from "./pages/home/HomePage";
+import ApartamentInvite from "./pages/apartaments/ApartamentInvite";
 
 function App() {
-  const [userData, setUserData] = useState(null);
-
   return (
     <>
       <ToastContainer />
@@ -21,6 +19,10 @@ function App() {
           <Routes>
             <Route element={<PrivateRoute />}>
               <Route path="/" element={<HomePage />} />
+              <Route
+                path="/apartaments/invitation/:jwToken"
+                element={<ApartamentInvite />}
+              />
             </Route>
             <Route path={"/login"} element={<AuthPage />} />
           </Routes>

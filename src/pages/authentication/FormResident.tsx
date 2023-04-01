@@ -6,12 +6,14 @@ import { loginAsResident } from "../../helpers/api/auth";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { UserContext, UserContextType } from "../../contexts/UserContext";
+import LoadingCircle from "../../components/LoadingCircle";
 
 export default function FormResident() {
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const { setUserInfo } = useContext(UserContext) as UserContextType;
@@ -25,12 +27,13 @@ export default function FormResident() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-
+    setLoading(true);
     try {
       const data = await loginAsResident(form);
       setUserInfo(data);
       navigate("/");
     } catch (err: any) {
+      setLoading(false);
       console.log(err);
       if (err.response.status == 401)
         return toast.warning("Email ou senha inválidos");
@@ -59,7 +62,11 @@ export default function FormResident() {
           minLength={5}
         />
         <Button type="submit" width="100%">
-          Entrar como morador
+          {loading ? (
+            <LoadingCircle color="white" width={50} loading={loading} />
+          ) : (
+            "Entrar"
+          )}
         </Button>
         Não possui uma conta? Cadastre-se <Link to="a">aqui</Link>
       </Form>

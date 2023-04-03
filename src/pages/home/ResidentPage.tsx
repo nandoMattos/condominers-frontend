@@ -58,14 +58,12 @@ export default function ResidentPage() {
               <Option>
                 <h1>Solicitar manutenção</h1>
                 <div>
-                  {/* <IonIcon name="add-circle"></IonIcon> */}
-                  <IonIcon name="hammer"></IonIcon>
+                  <IonIcon name="build"></IonIcon>
                 </div>
               </Option>
               <Option>
                 <h1>Agendar espaço</h1>
                 <div>
-                  {/* <IonIcon name="add-circle"></IonIcon> */}
                   <IonIcon name="calendar-number"></IonIcon>
                 </div>
               </Option>
@@ -96,6 +94,7 @@ export const UserInfo = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   padding-left: 50px;
+  color: white;
 
   h1 {
     font-family: "Varela", sans-serif;
@@ -134,14 +133,14 @@ export const Option = styled.div`
 
   cursor: pointer;
   :hover {
-    transition: all 0.4s;
-    background-color: ${MAIN_COLOR};
+    transition: all 0.2s;
+    background-color: #c4c4c4;
   }
 
   width: 44%;
   height: 130px;
-  background-color: ${SECONDARY_COLOR};
-  color: white;
+  background-color: white;
+  color: ${MAIN_COLOR};
   border-radius: 5px;
 
   font-size: 24px;

@@ -13,7 +13,7 @@ export default function ApartamentInvite() {
   async function tryJoinApartament() {
     try {
       await joinApartament(originalToken);
-      toast.success("boa");
+      toast.success("Você entrou no apartamento!");
       navigate("/");
     } catch (err) {
       console.log(err);

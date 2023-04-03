@@ -7,6 +7,7 @@ import PrivateRoute from "./helpers/PrivateRoute";
 import AuthPage from "./pages/authentication/AuthPage";
 import HomePage from "./pages/home/HomePage";
 import ApartamentInvite from "./pages/apartaments/ApartamentInvite";
+import Apartaments from "./pages/apartaments/Apartaments";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
                 path="/apartaments/invitation/:jwToken"
                 element={<ApartamentInvite />}
               />
+              <Route path="/apartaments" element={<Apartaments />} />
             </Route>
             <Route path={"/login"} element={<AuthPage />} />
           </Routes>

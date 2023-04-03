@@ -15,3 +15,20 @@ export interface ResidentUser {
     name: string
   }
 }
+export interface OwnerUser {
+  id: number,
+  email: string,
+  name: string,
+  Building: {
+    id: number,
+    name: string
+  },
+}
+
+export interface ApartamentsInfo {
+  id: number,
+  name: string,
+  totalVacancies: number,
+  avaliableVacancies: number
+  maintenaceRequests: number
+}

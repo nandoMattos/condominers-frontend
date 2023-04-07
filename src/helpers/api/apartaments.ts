@@ -14,43 +14,28 @@ import api from "./config";
   }
 }
 
-
-
 export async function joinApartament(jwToken: string | undefined) {
-  try{
-    await api.post(`/apartaments/invitation/${jwToken}`) 
-  }catch(err) {
-    throw err;
-  }
+  await api.post(`/apartaments/invitation/${jwToken}`);
 } 
 
 export async function getAllApartaments(): Promise<ApartamentsInfo[]>{
-  try{
-    const res = await api.get("/apartaments")
-    const apsData = res.data as ApartamentsData[]
-    let apsInfo: ApartamentsInfo[] = []
-
-    apsData.forEach((apartament)=>{
-      apsInfo.push({
-        id: apartament.id,
-        name: apartament.name,
-        totalVacancies: apartament.bedrooms_amount + apartament.suits_amount,
-        avaliableVacancies: apartament.bedrooms_amount + apartament.suits_amount - apartament._count.User,
-        maintenaceRequests: apartament._count.MaintenaceRequest
-      })
-    })
-    console.log(apsInfo)
-    return apsInfo;
-  }catch(err) {
-    throw err;
-  }
+  const res = await api.get("/apartaments");
+  const apsData = res.data as ApartamentsData[];
+  const apsInfo: ApartamentsInfo[] = [];
+  
+  apsData.forEach((apartament)=>{
+    apsInfo.push({
+      id: apartament.id,
+      name: apartament.name,
+      totalVacancies: apartament.bedrooms_amount + apartament.suits_amount,
+      avaliableVacancies: apartament.bedrooms_amount + apartament.suits_amount - apartament._count.User,
+      maintenaceRequests: apartament._count.MaintenaceRequest
+    });
+  });
+  return apsInfo;
 }
 
 export async function generateLink(apartamentId: number) {
-  try{ 
-    const response = await api.get(`/apartaments/${apartamentId}/generate-invite`)
-    return response.data;
-  } catch(err ) {
-    throw err;
-  }
+  const response = await api.get(`/apartaments/${apartamentId}/generate-invite`);
+  return response.data;
 }

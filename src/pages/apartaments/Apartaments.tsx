@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 import Apartament from "./Apartament";
 
 export default function Apartaments() {
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [apartaments, setApartaments] = useState<null | ApartamentsInfo[]>(
     null
   );
@@ -20,10 +20,10 @@ export default function Apartaments() {
     try {
       const apartaments = await getAllApartaments();
       setApartaments(apartaments);
-      setApartaments;
+      setLoading(false);
     } catch (err) {
-      console.log(err);
       toast.warning("Algo deu errado, tente novamente mais tarde.");
+      setLoading(false);
     }
   }
 
@@ -32,7 +32,7 @@ export default function Apartaments() {
   }, []);
 
   return (
-    <BaseStructure>
+    <BaseStructure className="scrollable">
       {loading && (
         <LoadingCircle height={70} loading={loading} color={MAIN_COLOR} />
       )}

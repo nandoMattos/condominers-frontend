@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import { ApartamentsInfo } from "../../protocols";
-import { MAIN_COLOR, SECONDARY_COLOR } from "../../assets/colors";
+import { MAIN_COLOR } from "../../assets/colors";
 import IonIcon from "@reacticons/ionicons";
 import LoadingCircle from "../../components/LoadingCircle";
 import { generateLink } from "../../helpers/api/apartaments";
-import { useState } from "react";
+import React, { useState } from "react";
 import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 type ApartamentProps = ApartamentsInfo & {
   isLoading: boolean;
@@ -50,10 +51,10 @@ export default function Apartament({
         title: "Envie o link abaixo para o morador",
         text: link,
       });
+      toast.success("Link copiado para a área de transferência!");
     } catch (err) {
       setInviteLoading(0);
       setDisableButtons(false);
-      console.log(err);
     }
   }
 

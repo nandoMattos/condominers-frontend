@@ -8,6 +8,7 @@ import AuthPage from "./pages/authentication/AuthPage";
 import HomePage from "./pages/home/HomePage";
 import ApartamentInvite from "./pages/apartaments/ApartamentInvite";
 import Apartaments from "./pages/apartaments/Apartaments";
+import MaintenancePage from "./pages/maintenance/MaintenancePage";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Routes>
             <Route element={<PrivateRoute />}>
               <Route path="/" element={<HomePage />} />
+              <Route path="/maintenance" element={<MaintenancePage />} />
               <Route
                 path="/apartaments/invitation/:jwToken"
                 element={<ApartamentInvite />}

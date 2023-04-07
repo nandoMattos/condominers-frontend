@@ -1,30 +1,30 @@
-import { createContext, Dispatch, ReactNode, SetStateAction } from "react";
+import { createContext, type Dispatch, type ReactNode, type SetStateAction } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 
-export type User = {
-  id: number;
-  name: string;
-  email: string;
-  ownerToken?: string;
-};
+export interface User {
+  id: number
+  name: string
+  email: string
+  ownerToken?: string
+}
 
-export type UserInfoType = {
-  token: string;
-  user: User;
-};
+export interface UserInfoType {
+  token: string
+  user: User
+}
 
-export type UserContextType = {
-  userInfo: UserInfoType;
-  setUserInfo: Dispatch<SetStateAction<User>>;
-};
+export interface UserContextType {
+  userInfo: UserInfoType
+  setUserInfo: Dispatch<SetStateAction<User>>
+}
 
 export const UserContext = createContext({});
 
-type UserProviderProps = {
-  children: ReactNode;
-};
+interface UserProviderProps {
+  children: ReactNode
+}
 
-export default function UserProvider({ children }: UserProviderProps) {
+export default function UserProvider ({ children }: UserProviderProps) {
   const [userInfo, setUserInfo] = useLocalStorage("userInfo", {});
 
   return (

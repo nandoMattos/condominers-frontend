@@ -3,10 +3,17 @@ import Header from "../../components/Header";
 import React from "react";
 import { SECONDARY_COLOR } from "../../assets/colors";
 
-export default function BaseStructure({ children }: React.PropsWithChildren) {
+interface BaseStructureProps extends React.PropsWithChildren {
+  className?: string;
+}
+
+export default function BaseStructure({
+  children,
+  className,
+}: BaseStructureProps) {
   return (
     <>
-      <HomePageStyle>
+      <HomePageStyle className={className}>
         <Header />
         <MainStyle>{children}</MainStyle>
       </HomePageStyle>
@@ -15,9 +22,9 @@ export default function BaseStructure({ children }: React.PropsWithChildren) {
 }
 
 const HomePageStyle = styled.div`
-  min-height: 100vh;
+  height: 100vh;
   padding-top: 70px;
-  background-color: #969696;
+  background-color: #a6a6a6;
   font-family: "Open Sans", sans-serif;
 `;
 
@@ -29,6 +36,7 @@ const MainStyle = styled.div`
   -webkit-box-shadow: 0px 0px 23px 0px rgba(0, 0, 0, 0.61);
   -moz-box-shadow: 0px 0px 23px 0px rgba(0, 0, 0, 0.61);
   box-shadow: 0px 0px 23px 0px rgba(0, 0, 0, 0.61);
+  padding-bottom: 20px;
 
   @media (max-width: 800px) {
     width: 100%;

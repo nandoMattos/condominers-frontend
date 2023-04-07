@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "axios";
 
 interface residentLoginBody {
   email: string,
@@ -11,23 +11,16 @@ interface ownerLoginBody extends residentLoginBody{
 
 
 export async function loginAsResident(body: residentLoginBody) {
-  try{
-    const {data} = await axios.post(`${import.meta.env.VITE_URL_API}/auth/sign-in`, body);
-    localStorage.setItem("userInfo", JSON.stringify(data));
+  const {data} = await axios.post(`${import.meta.env.VITE_URL_API}/auth/sign-in`, body);
+  localStorage.setItem("userInfo", JSON.stringify(data));
 
-    return data
-  } catch (err) {
-    throw err;
-  }
+  return data;
 }
 
-export async function loginAsOwner(body: ownerLoginBody) {
-  try {
-    const {data} = await axios.post(`${import.meta.env.VITE_URL_API}/auth/sign-in/owner`, body);
-    localStorage.setItem("userInfo", JSON.stringify(data));
 
-    return data;
-  }catch(err) {
-    throw err;
-  }
+export async function loginAsOwner(body: ownerLoginBody) {
+  const {data} = await axios.post(`${import.meta.env.VITE_URL_API}/auth/sign-in/owner`, body);
+  localStorage.setItem("userInfo", JSON.stringify(data));
+
+  return data;
 }

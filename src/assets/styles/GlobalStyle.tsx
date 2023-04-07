@@ -10,6 +10,9 @@ const GlobalStyle = createGlobalStyle`
 
   }
   
+  .scrollable {
+    height:fit-content;
+  }
 `;
 
 export default GlobalStyle;

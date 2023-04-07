@@ -15,8 +15,11 @@ export default function ApartamentInvite() {
       await joinApartament(originalToken);
       toast.success("Você entrou no apartamento!");
       navigate("/");
-    } catch (err) {
-      console.log(err);
+    } catch (err: any) {
+      if (err.response.status === 440) {
+        toast.warning("Sua sessão expirou.");
+        return navigate("/login");
+      }
       toast.warning("Algo deu errado, tente novamento mais tarde.");
     }
   }

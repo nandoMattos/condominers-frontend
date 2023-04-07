@@ -1,4 +1,4 @@
-import { HTMLAttributes, PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 import styled from "styled-components";
 
 export interface BtnProps extends PropsWithChildren {

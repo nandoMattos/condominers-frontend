@@ -4,10 +4,11 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext, UserContextType } from "../../contexts/UserContext";
 import { getResidentUser } from "../../helpers/api/resident";
 import { ResidentUser } from "../../protocols";
-import { MAIN_COLOR, SECONDARY_COLOR } from "../../assets/colors";
+import { MAIN_COLOR } from "../../assets/colors";
 import IonIcon from "@reacticons/ionicons";
 import { toast } from "react-toastify";
 import LoadingCircle from "../../components/LoadingCircle";
+import { useNavigate } from "react-router-dom";
 
 export default function ResidentPage() {
   const [residentData, setResidentData] = useState<null | ResidentUser>(null);
@@ -16,16 +17,21 @@ export default function ResidentPage() {
   const { userInfo } = useContext(UserContext) as UserContextType;
   const user = userInfo.user;
 
+  const navigate = useNavigate();
+
   async function getResidentData() {
     try {
       const data = await getResidentUser(user.id);
       setResidentData(data);
     } catch (err: any) {
+      if (err.response.status === 440) {
+        toast.warn("Sua sessão expirou.");
+        return navigate("/login");
+      }
       toast.warn("Algo deu errado. Tente novamente mais tarde");
     }
     setLoading(false);
   }
-  console.log(residentData);
 
   useEffect(() => {
     getResidentData();
@@ -33,9 +39,7 @@ export default function ResidentPage() {
 
   return (
     <BaseStructure>
-      {loading && (
-        <LoadingCircle height={70} loading={loading} color={MAIN_COLOR} />
-      )}
+      {loading && <LoadingCircle height={70} loading={loading} color="white" />}
 
       {!loading && (
         <>
@@ -55,7 +59,7 @@ export default function ResidentPage() {
           </UserInfo>
           <ContainerOptions>
             <Options>
-              <Option>
+              <Option onClick={() => navigate("/maintenance")}>
                 <h1>Solicitar manutenção</h1>
                 <div>
                   <IonIcon name="build"></IonIcon>

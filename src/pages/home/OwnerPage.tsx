@@ -29,6 +29,10 @@ export default function OwnerPage() {
       const data = (await getOwnerInfo(user.id)) as unknown as OwnerUser;
       setOwnerData(data);
     } catch (err: any) {
+      if (err.response.status === 440) {
+        toast.warn("Sua sessão expirou.");
+        return navigate("/login");
+      }
       toast.warn("Algo deu errado. Tente novamente mais tarde");
     }
     setLoading(false);

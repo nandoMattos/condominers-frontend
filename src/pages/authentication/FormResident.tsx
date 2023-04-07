@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "../../assets/styles/Button";
@@ -34,7 +34,6 @@ export default function FormResident() {
       navigate("/");
     } catch (err: any) {
       setLoading(false);
-      console.log(err);
       if (err.response.status == 401)
         return toast.warning("Email ou senha inválidos");
       return toast.warn("Algo de errado, tente novamente mais tarde");

@@ -1,17 +1,21 @@
 import styled from "styled-components";
 import BaseStructure from "../home/BaseStructure";
 import Button from "../../assets/styles/Button";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { getResidentUser } from "../../helpers/api/resident";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { ResidentUser } from "../../protocols";
 import { UserContext, UserContextType } from "../../contexts/UserContext";
 import LoadingCircle from "../../components/LoadingCircle";
+import { postMaintenance } from "../../helpers/api/maintenance";
+import Swal from "sweetalert2";
 
 export default function MaintenancePage() {
   const [residentData, setResidentData] = useState<null | ResidentUser>(null);
+  const [description, setDescription] = useState<undefined | string>(undefined);
   const [loading, setLoading] = useState<boolean>(true);
+
   const { userInfo } = useContext(UserContext) as UserContextType;
   const user = userInfo.user;
   const navigate = useNavigate();
@@ -33,7 +37,27 @@ export default function MaintenancePage() {
     getResidentData();
   }, []);
 
-  function confirmMaintenance() {}
+  async function confirmMaintenance() {
+    Swal.fire({
+      title: "Tem certeza?",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Solicitar manutenção",
+    }).then(async (r) => {
+      if (r.isConfirmed) {
+        try {
+          await postMaintenance(residentData?.Apartament?.id, description);
+        } catch (err) {
+          toast("Algo deu errado, tente novamente mais tarde");
+        }
+      }
+    });
+  }
+
+  function handleForm(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    setDescription(e.target.value);
+  }
 
   return (
     <BaseStructure>
@@ -51,11 +75,12 @@ export default function MaintenancePage() {
             <FormDiv>
               <label htmlFor="description">Descreva o problema:</label>
               <textarea
+                onChange={handleForm}
                 id="description"
                 placeholder="ex: Estou com problemas no encanamento e gostaria..."
               ></textarea>
 
-              <Button onClick={() => confirmMaintenance}>
+              <Button onClick={() => confirmMaintenance()}>
                 Solicitar Manutenção
               </Button>
             </FormDiv>

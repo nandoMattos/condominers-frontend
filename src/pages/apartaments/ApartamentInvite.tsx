@@ -20,6 +20,10 @@ export default function ApartamentInvite() {
         toast.warning("Sua sessão expirou.");
         return navigate("/login");
       }
+      if (err.response.status === 409) {
+        toast.success("Você já está nesse apartamento.");
+        return navigate("/");
+      }
       toast.warning("Algo deu errado, tente novamento mais tarde.");
     }
   }

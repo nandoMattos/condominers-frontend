@@ -9,6 +9,7 @@ import HomePage from "./pages/home/HomePage";
 import ApartamentInvite from "./pages/apartaments/ApartamentInvite";
 import Apartaments from "./pages/apartaments/Apartaments";
 import MaintenancePage from "./pages/maintenance/MaintenancePage";
+import RentSpacePage from "./pages/rent-space/RentSpacePage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route element={<PrivateRoute />}>
               <Route path="/" element={<HomePage />} />
               <Route path="/maintenance" element={<MaintenancePage />} />
+              <Route path="/rent-space" element={<RentSpacePage />} />
               <Route
                 path="/apartaments/invitation/:jwToken"
                 element={<ApartamentInvite />}

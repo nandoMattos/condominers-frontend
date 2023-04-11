@@ -43,51 +43,60 @@ export default function ResidentPage() {
 
       {!loading && (
         <>
-          <UserInfo>
-            <h1>Olá, {user.name}</h1>
-            <div>
-              <p>
-                <Bold>Prédio:</Bold> {residentData?.Apartament?.Building.name}{" "}
-              </p>
-              <p>
-                <Bold>Apartamento:</Bold> {residentData?.Apartament?.name}{" "}
-              </p>
-              {residentData?.ParkingLot && (
-                <p>Estacionamento: {residentData.ParkingLot?.name}</p>
-              )}
-            </div>
-          </UserInfo>
-          <ContainerOptions>
-            <Options>
-              <Option onClick={() => navigate("/maintenance")}>
-                <h1>Solicitar manutenção</h1>
+          {residentData?.Apartament ? (
+            <>
+              <UserInfo>
+                <h1>Olá, {user.name}</h1>
                 <div>
-                  <IonIcon name="build"></IonIcon>
+                  <p>
+                    <Bold>Prédio:</Bold>{" "}
+                    {residentData?.Apartament?.Building.name}{" "}
+                  </p>
+                  <p>
+                    <Bold>Apartamento:</Bold> {residentData?.Apartament?.name}{" "}
+                  </p>
+                  {residentData?.ParkingLot && (
+                    <p>Estacionamento: {residentData.ParkingLot?.name}</p>
+                  )}
                 </div>
-              </Option>
-              <Option>
-                <h1>Agendar espaço</h1>
-                <div>
-                  <IonIcon name="calendar-number"></IonIcon>
-                </div>
-              </Option>
-            </Options>
+              </UserInfo>
+              <ContainerOptions>
+                <Options>
+                  <Option onClick={() => navigate("/maintenance")}>
+                    <h1>Solicitar manutenção</h1>
+                    <div>
+                      <IonIcon name="build"></IonIcon>
+                    </div>
+                  </Option>
+                  <Option onClick={() => navigate("/rent-space")}>
+                    <h1>Agendar espaço</h1>
+                    <div>
+                      <IonIcon name="calendar-number"></IonIcon>
+                    </div>
+                  </Option>
+                </Options>
 
-            <Options>
-              <Option>
-                <h1>Reportar problema</h1>
-                <div>
-                  <IonIcon name="alert-circle"></IonIcon>
-                </div>
-              </Option>
-              <Option>
-                <h1>Minhas solicitações</h1>
-                <div>
-                  <IonIcon name="receipt"></IonIcon>
-                </div>
-              </Option>
-            </Options>
-          </ContainerOptions>
+                <Options>
+                  <Option>
+                    <h1>Reportar problema</h1>
+                    <div>
+                      <IonIcon name="alert-circle"></IonIcon>
+                    </div>
+                  </Option>
+                  <Option>
+                    <h1>Minhas solicitações</h1>
+                    <div>
+                      <IonIcon name="receipt"></IonIcon>
+                    </div>
+                  </Option>
+                </Options>
+              </ContainerOptions>
+            </>
+          ) : (
+            <Warning>
+              Você não está em um apartamento. Peça um convite ao proprietário
+            </Warning>
+          )}
         </>
       )}
     </BaseStructure>
@@ -160,4 +169,14 @@ export const Option = styled.div`
     margin: 0 auto;
     font-size: 40px;
   }
+`;
+
+const Warning = styled.div`
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding-top: 30px;
+  width: 70%;
 `;

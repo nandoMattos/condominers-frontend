@@ -78,15 +78,15 @@ export default function ResidentPage() {
 
                 <Options>
                   <Option>
-                    <h1>Reportar problema</h1>
-                    <div>
-                      <IonIcon name="alert-circle"></IonIcon>
-                    </div>
-                  </Option>
-                  <Option>
                     <h1>Minhas solicitações</h1>
                     <div>
                       <IonIcon name="receipt"></IonIcon>
+                    </div>
+                  </Option>
+                  <Option onClick={() => navigate("/report")}>
+                    <h1>Reportar problema</h1>
+                    <div>
+                      <IonIcon name="alert-circle"></IonIcon>
                     </div>
                   </Option>
                 </Options>

@@ -16,6 +16,7 @@ import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 import Button from "../../assets/styles/Button";
 import utc from "dayjs/plugin/utc";
+import Swal from "sweetalert2";
 
 export default function RentSpacePage() {
   dayjs.extend(utc);
@@ -58,14 +59,26 @@ export default function RentSpacePage() {
   }
 
   async function handleClick() {
-    try {
-      await rentSpace(selectedSpaceId, startDate);
-      setDaySchedule([...spaceSchedule, startDate]);
-      setStartDate(null);
-      toast.success("Espaço agendado com sucesso!");
-    } catch (err: any) {
-      toast.warning("Algo deu errado, tente novamente mais tarde");
-    }
+    Swal.fire({
+      title: "Tem certeza?",
+      text: "Deseja agendar o espaço?",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "Agendar",
+    }).then(async (r) => {
+      if (r.isConfirmed) {
+        try {
+          await rentSpace(selectedSpaceId, startDate);
+          setDaySchedule([...spaceSchedule, startDate]);
+          setStartDate(null);
+          toast.success("Espaço agendado com sucesso!");
+        } catch (err: any) {
+          toast.warning("Algo deu errado, tente novamente mais tarde");
+        }
+      }
+    });
   }
 
   useEffect(() => {

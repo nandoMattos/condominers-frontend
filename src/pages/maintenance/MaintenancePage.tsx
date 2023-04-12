@@ -40,16 +40,22 @@ export default function MaintenancePage() {
   async function confirmMaintenance() {
     Swal.fire({
       title: "Tem certeza?",
+      text: "Deseja enviar a solicitação?",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
+      cancelButtonText: "Cancelar",
       confirmButtonText: "Solicitar manutenção",
     }).then(async (r) => {
       if (r.isConfirmed) {
         try {
           await postMaintenance(residentData?.Apartament?.id, description);
+          toast.success("Sua mensagem foi enviada.");
         } catch (err) {
-          toast("Algo deu errado, tente novamente mais tarde");
+          if (!description) {
+            return toast.warning("Digite uma mensagem válida.");
+          }
+          toast.warning("Algo deu errado, tente novamente mais tarde");
         }
       }
     });
@@ -116,8 +122,9 @@ const PaperDiv = styled.main`
 
 const User = styled.div`
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
   margin: 20px 0;
+  margin-left: 20px;
   padding: 10px;
 `;
 
@@ -137,5 +144,9 @@ const FormDiv = styled.div`
       /* border: none; */
       outline: none;
     }
+  }
+
+  button {
+    margin-top: 30px;
   }
 `;

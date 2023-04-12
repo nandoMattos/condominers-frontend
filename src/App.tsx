@@ -10,6 +10,7 @@ import ApartamentInvite from "./pages/apartaments/ApartamentInvite";
 import Apartaments from "./pages/apartaments/Apartaments";
 import MaintenancePage from "./pages/maintenance/MaintenancePage";
 import RentSpacePage from "./pages/rent-space/RentSpacePage";
+import ReportPage from "./pages/report/ReportPage";
 
 function App() {
   return (
@@ -24,11 +25,12 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/maintenance" element={<MaintenancePage />} />
               <Route path="/rent-space" element={<RentSpacePage />} />
+              <Route path="/apartaments" element={<Apartaments />} />
               <Route
                 path="/apartaments/invitation/:jwToken"
                 element={<ApartamentInvite />}
               />
-              <Route path="/apartaments" element={<Apartaments />} />
+              <Route path="/report" element={<ReportPage />} />
             </Route>
             <Route path={"/login"} element={<AuthPage />} />
           </Routes>

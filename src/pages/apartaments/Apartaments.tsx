@@ -32,7 +32,7 @@ export default function Apartaments() {
   }, []);
 
   return (
-    <BaseStructure className="scrollable">
+    <BaseStructure>
       {loading && (
         <LoadingCircle height={70} loading={loading} color={MAIN_COLOR} />
       )}

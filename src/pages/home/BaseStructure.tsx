@@ -22,15 +22,15 @@ export default function BaseStructure({
 }
 
 const HomePageStyle = styled.div`
-  height: 100vh;
-  padding-top: 70px;
+  min-height: 100vh;
   background-color: #a6a6a6;
   font-family: "Open Sans", sans-serif;
 `;
 
 const MainStyle = styled.div`
+  padding-top: 70px;
   margin: 0 auto;
-  height: 100%;
+  min-height: 100vh;
   width: 70%;
   background-color: ${SECONDARY_COLOR};
   -webkit-box-shadow: 0px 0px 23px 0px rgba(0, 0, 0, 0.61);

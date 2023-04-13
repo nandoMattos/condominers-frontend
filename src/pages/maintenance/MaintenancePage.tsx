@@ -40,7 +40,7 @@ export default function MaintenancePage() {
   async function confirmMaintenance() {
     Swal.fire({
       title: "Tem certeza?",
-      text: "Deseja enviar a solicitação?",
+      text: "Deseja enviar a solicitação? Além de você, apenas o proprietário poderá ver suas solicitações",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
@@ -51,6 +51,7 @@ export default function MaintenancePage() {
         try {
           await postMaintenance(residentData?.Apartament?.id, description);
           toast.success("Sua mensagem foi enviada.");
+          setDescription("");
         } catch (err) {
           if (!description) {
             return toast.warning("Digite uma mensagem válida.");
@@ -81,6 +82,7 @@ export default function MaintenancePage() {
             <FormDiv>
               <label htmlFor="description">Descreva o problema:</label>
               <textarea
+                value={description}
                 onChange={handleForm}
                 id="description"
                 placeholder="ex: Estou com problemas no encanamento e gostaria..."
@@ -112,8 +114,10 @@ const PaperDiv = styled.main`
   height: 90%;
   background-color: white;
   border-radius: 2px;
+  background-color: #e8e6e6;
 
   h1 {
+    margin-top: 20px;
     text-align: center;
     font-family: "Oswald", sans-serif;
     font-size: 50px;
@@ -139,7 +143,8 @@ const FormDiv = styled.div`
     height: 60%;
     margin-top: 10px;
     resize: none;
-    background-color: #cccccc;
+    background-color: white;
+    padding: 10px;
     :focus {
       /* border: none; */
       outline: none;

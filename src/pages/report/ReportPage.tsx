@@ -17,7 +17,7 @@ export default function ReportPage() {
   function confirmReport() {
     Swal.fire({
       title: "Tem certeza?",
-      text: "Deseja enviar a reclamação?",
+      text: "Deseja enviar a reclamação? Além de você, apenas o proprietário poderá ver suas solicitações.",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
@@ -46,7 +46,7 @@ export default function ReportPage() {
           <h1>Insira sua reclamação (imagem opcional)</h1>
           <textarea
             onChange={handleChange}
-            placeholder="ex: Vi um morador jogando lixo no chão no dia..."
+            placeholder="ex: O morador do 103 fez barulho até 2 da manhã e..."
             value={description}
           />
           <input type="file" multiple accept="image/*" />
@@ -64,7 +64,7 @@ const Main = styled.div`
   justify-content: center;
   margin: 0 auto;
   width: 80%;
-  height: 100%;
+  min-height: 450px;
   background-image: url(${postIt});
   background-size: 450px;
   background-position: center;
@@ -76,7 +76,8 @@ const Paper = styled.div`
   flex-direction: column;
   margin-top: 60px;
   width: 50%;
-  height: 65%;
+  height: 350px;
+  /* background-color: blue; */
 
   h1 {
     margin-top: 10px;
@@ -85,6 +86,7 @@ const Paper = styled.div`
   textarea {
     margin-top: 20px;
     height: 60%;
+    padding: 10px;
     resize: none;
     :focus {
       outline: none;

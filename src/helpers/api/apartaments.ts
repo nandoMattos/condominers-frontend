@@ -10,7 +10,7 @@ import api from "./config";
   buildingId: number,
   _count: {
     User: number,
-    MaintenaceRequest: number
+    MaintenanceRequest: number
   }
 }
 
@@ -29,7 +29,7 @@ export async function getAllApartaments(): Promise<ApartamentsInfo[]>{
       name: apartament.name,
       totalVacancies: apartament.bedrooms_amount + apartament.suits_amount,
       avaliableVacancies: apartament.bedrooms_amount + apartament.suits_amount - apartament._count.User,
-      maintenaceRequests: apartament._count.MaintenaceRequest
+      maintenaceRequests: apartament._count.MaintenanceRequest
     });
   });
   return apsInfo;

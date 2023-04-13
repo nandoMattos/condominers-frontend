@@ -77,7 +77,7 @@ export default function ResidentPage() {
                 </Options>
 
                 <Options>
-                  <Option>
+                  <Option onClick={() => navigate("/my-requests")}>
                     <h1>Minhas solicitações</h1>
                     <div>
                       <IonIcon name="receipt"></IonIcon>

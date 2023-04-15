@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import { postReport } from "../../helpers/api/reports";
+import { useNavigate } from "react-router-dom";
 
 export default function ReportPage() {
   const [description, setDescription] = useState("");
@@ -13,6 +14,8 @@ export default function ReportPage() {
   function handleChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
     setDescription(e.target.value);
   }
+
+  const navigate = useNavigate();
 
   function confirmReport() {
     Swal.fire({
@@ -29,7 +32,11 @@ export default function ReportPage() {
           await postReport(description);
           toast.success("Sua mensagem foi enviada.");
           setDescription("");
-        } catch (err) {
+        } catch (err: any) {
+          if (err.response.status === 440) {
+            toast.warn("Sua sessão expirou.");
+            return navigate("/login");
+          }
           if (!description) {
             return toast.warning("Digite uma mensagem válida.");
           }

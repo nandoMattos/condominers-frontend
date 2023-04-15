@@ -67,7 +67,7 @@ export default function OwnerPage() {
           </UserInfo>
           <ContainerOptions>
             <Options>
-              <Option>
+              <Option onClick={() => navigate("/requests")}>
                 <h1>Caixa de entrada</h1>
                 <div>
                   <IonIcon name="mail"></IonIcon>

@@ -8,6 +8,16 @@ export type MaintenanceRequests =  {
   apartamentId: number;
   createdAt: Date;
   updatedAt: Date;
+  Apartament: {
+    id: number,
+    name: string,
+    bedrooms_amount: number,
+    bathrooms_amount: number,
+    suits_amount: number,
+    buildingId: number,
+    createdAt: Date,
+    updatedAt: Date
+  }
 }
 
 export type Reports = {
@@ -57,25 +67,6 @@ export type RequestsParsed = {
   rents: RentSpaces[]
 }
 
-export async function getUserRequests(userId:number) {
-  const res = await  api.get<RequestsData>(`/requests/user/${userId}`);
-  const requests = res.data as RequestsData;
-  
-  const unsolvedMaintenances = requests.MaintenanceRequests.filter((r)=>!r.solved);
-  const unsolvedReports = requests.Reports.filter((r)=>!r.solved); 
-  const solvedMaintenances = requests.MaintenanceRequests.filter((r)=>r.solved);
-  const solvedReports = requests.Reports.filter((r)=>r.solved); 
-
-  const allUnsolved = parseAndAssembleRequests(unsolvedMaintenances, unsolvedReports);
-  const allSolved = parseAndAssembleRequests(solvedMaintenances, solvedReports);
-  
-  return {
-    allSolved,
-    allUnsolved,
-    rents: requests.RentSpaces
-  };
-}
-
 function parseAndAssembleRequests(maintenances: MaintenanceRequests[], reports: Reports[] ){
   const parsedMaintenances:ReportsInfo[] = maintenances.map((m)=>{
     return {
@@ -96,3 +87,38 @@ function parseAndAssembleRequests(maintenances: MaintenanceRequests[], reports: 
   });
   return [...parsedMaintenances, ...parsedReports];
 } 
+
+
+export async function getUserRequests(userId:number) {
+  const res = await  api.get<RequestsData>(`/requests/user/${userId}`);
+  const requests = res.data as RequestsData;
+  
+  const unsolvedMaintenances = requests.MaintenanceRequests.filter((r)=>!r.solved);
+  const unsolvedReports = requests.Reports.filter((r)=>!r.solved); 
+  const solvedMaintenances = requests.MaintenanceRequests.filter((r)=>r.solved);
+  const solvedReports = requests.Reports.filter((r)=>r.solved); 
+
+  const allUnsolved = parseAndAssembleRequests(unsolvedMaintenances, unsolvedReports);
+  const allSolved = parseAndAssembleRequests(solvedMaintenances, solvedReports);
+  
+  return {
+    allSolved,
+    allUnsolved,
+    rents: requests.RentSpaces
+  };
+}
+
+export async function getAllRequests(){
+  const response = await api.get<{Maintenances: MaintenanceRequests[], Reports: Reports[]}>("/requests");
+  return response.data;
+}
+
+export async function markMaintenanceAsSolved(id:number | undefined ){
+  const reponse = await api.patch(`/requests/maintenance/${id}/solve`);
+  return reponse.data;
+}
+
+export async function markReportAsSolved(id:number | undefined ){
+  const reponse = await api.patch(`/requests/report/${id}/solve`);
+  return reponse.data;
+}

@@ -17,6 +17,7 @@ import { RequestsParsed, getUserRequests } from "../../helpers/api/requests";
 import { toast } from "react-toastify";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import RentCard from "./RentCard";
+import { useNavigate } from "react-router-dom";
 
 export default function MyRequestsPage() {
   const [loading, setLoading] = useState(true);
@@ -28,13 +29,18 @@ export default function MyRequestsPage() {
 
   const { userInfo } = useContext(UserContext) as UserContextType;
   const user = userInfo.user;
+  const navigate = useNavigate();
 
   async function tryGetUserRequests() {
     try {
       const requestsNow = await getUserRequests(user.id);
       setRequests(requestsNow);
       setLoading(false);
-    } catch (err) {
+    } catch (err: any) {
+      if (err.response.status === 440) {
+        toast.warn("Sua sessão expirou.");
+        return navigate("/login");
+      }
       toast.warning("Algo deu errado, tente novamente mais tarde.");
     }
   }
@@ -115,7 +121,7 @@ export default function MyRequestsPage() {
   );
 }
 
-const Main = styled.main`
+export const Main = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;

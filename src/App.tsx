@@ -12,6 +12,7 @@ import MaintenancePage from "./pages/maintenance/MaintenancePage";
 import RentSpacePage from "./pages/rent-space/RentSpacePage";
 import ReportPage from "./pages/report/ReportPage";
 import MyRequestsPage from "./pages/requests/MyRequestsPage";
+import AllRequestsPage from "./pages/requests/AllRequestsPage";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
               <Route path="/my-requests" element={<MyRequestsPage />} />
             </Route>
             <Route path={"/login"} element={<AuthPage />} />
+            <Route path={"/requests"} element={<AllRequestsPage />} />
           </Routes>
         </BrowserRouter>
       </UserProvider>

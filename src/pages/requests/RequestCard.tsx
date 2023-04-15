@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 type props = ReportsInfo & {
   solved: boolean;
 };
+
 export default function RequestCard({
   type,
   createdAt,

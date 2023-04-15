@@ -8,6 +8,7 @@ import { getAllApartaments } from "../../helpers/api/apartaments";
 import { ApartamentsInfo } from "../../protocols";
 import { toast } from "react-toastify";
 import Apartament from "./Apartament";
+import { useNavigate } from "react-router-dom";
 
 export default function Apartaments() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -16,12 +17,18 @@ export default function Apartaments() {
   );
   const [inviteLoading, setInviteLoading] = useState(0);
 
+  const navigate = useNavigate();
+
   async function getApartamentsInfo() {
     try {
       const apartaments = await getAllApartaments();
       setApartaments(apartaments);
       setLoading(false);
-    } catch (err) {
+    } catch (err: any) {
+      if (err.response.status === 440) {
+        toast.warn("Sua sessão expirou.");
+        return navigate("/login");
+      }
       toast.warning("Algo deu errado, tente novamente mais tarde.");
       setLoading(false);
     }

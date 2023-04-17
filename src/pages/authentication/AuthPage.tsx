@@ -4,6 +4,7 @@ import { MAIN_COLOR, SECONDARY_COLOR } from "../../assets/colors";
 import Button from "../../assets/styles/Button";
 import FormOwner from "./FormOwner";
 import FormResident from "./FormResident";
+import logo from "../../assets/images/building.png";
 
 export default function AuthPage() {
   const [isResident, setIsResident] = useState<undefined | boolean>(undefined);
@@ -20,7 +21,10 @@ export default function AuthPage() {
     <>
       <Page>
         <Wraper>
-          <h1>Condominers</h1>
+          <HeaderWrap>
+            <img src={logo} />
+            <h1>Condominers</h1>
+          </HeaderWrap>
           {/* <p>
             A melhor solução para seu condomínio! descricao foda descricao foda
             descricao foda descricao foda descricao foda descricao foda
@@ -37,9 +41,9 @@ export default function AuthPage() {
               </Button>
             </Fixed>
             {isResident !== undefined ? (
-              <FormContainer heigth={isResident ? "200px" : "250px"}>
+              <FormContainerAuth heigth={isResident ? "200px" : "250px"}>
                 {isResident ? <FormResident /> : <FormOwner />}
-              </FormContainer>
+              </FormContainerAuth>
             ) : (
               ""
             )}
@@ -56,20 +60,36 @@ export const Page = styled.div`
   color: white;
 `;
 
-const Wraper = styled.div`
+export const HeaderWrap = styled.div`
+  /* background-color: red; */
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  h1 {
+    margin: 0 auto;
+    width: fit-content;
+    font-size: 100px;
+  }
+  img {
+    width: 60px;
+    color: white;
+  }
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 50px;
+    }
+  }
+`;
+
+export const Wraper = styled.div`
   margin: 0 auto;
   padding-top: 40px;
-  /* background-color: red; */
   height: 100%;
   width: 80%;
   font-family: "Passion One", cursive;
 
-  h1 {
-    margin: 0 auto;
-
-    width: fit-content;
-    font-size: 100px;
-  }
   p {
     margin: 0 auto;
     width: 70%;
@@ -77,7 +97,7 @@ const Wraper = styled.div`
   }
 `;
 
-const FormWraper = styled.main`
+export const FormWraper = styled.main`
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -89,6 +109,9 @@ const FormWraper = styled.main`
   background-color: ${SECONDARY_COLOR};
   border-radius: 4px;
   padding: 20px;
+  h2 {
+    font-size: 25px;
+  }
 `;
 
 const Fixed = styled.div`
@@ -102,15 +125,18 @@ const Fixed = styled.div`
   }
 `;
 
-const FormContainer = styled.div<{ heigth: string }>`
+export const FormContainerAuth = styled.div<{ heigth?: string }>`
   margin-top: 20px;
   transition: all ease 0.2s;
 
-  width: 60%;
+  width: 70%;
   height: ${({ heigth }) => heigth};
   input {
     margin-bottom: 10px;
     width: 100%;
     height: 40px;
+  }
+  @media (max-width: 600px) {
+    width: 100%;
   }
 `;

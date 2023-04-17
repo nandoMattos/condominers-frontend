@@ -9,12 +9,17 @@ import LoadingCircle from "../../components/LoadingCircle";
 import {
   Bold,
   ContainerOptions,
+  Logout,
   Option,
   Options,
   UserInfo,
+  UserText,
 } from "./ResidentPage";
 import { getOwnerInfo } from "../../helpers/api/owner";
 import { useNavigate } from "react-router-dom";
+import LogoutIcon from "@mui/icons-material/Logout";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import Swal from "sweetalert2";
 
 export default function OwnerPage() {
   const [ownerData, setOwnerData] = useState<null | OwnerUser>(null);
@@ -42,6 +47,20 @@ export default function OwnerPage() {
     getOwnerData();
   }, []);
 
+  function handleLogout() {
+    Swal.fire({
+      showCancelButton: true,
+      title: "Deseja sair?",
+      cancelButtonColor: "red",
+      confirmButtonColor: "#1877f2",
+    }).then((res) => {
+      if (res.isConfirmed) {
+        localStorage.clear();
+        navigate("/login");
+      }
+    });
+  }
+
   return (
     <BaseStructure>
       {loading && (
@@ -51,19 +70,24 @@ export default function OwnerPage() {
       {!loading && (
         <>
           <UserInfo>
-            <h1>Olá, {user.name}</h1>
-            <div>
+            <UserText>
+              <div className="flex">
+                <AdminPanelSettingsIcon fontSize="inherit" />
+              </div>
+            </UserText>
+            <div className="text">
               <p>
                 <Bold>Prédio: </Bold>
                 {ownerData?.Building.name}
               </p>
               <p>
-                <Bold>Apartamentos:</Bold> 2/10 ocupados
-              </p>
-              <p>
-                <Bold>Estacionamentos:</Bold> 0/10 ocupados
+                <Bold>Nome: </Bold>
+                {user?.name}
               </p>
             </div>
+            <Logout onClick={() => handleLogout()}>
+              <LogoutIcon fontSize="inherit" />
+            </Logout>
           </UserInfo>
           <ContainerOptions>
             <Options>
@@ -82,7 +106,15 @@ export default function OwnerPage() {
             </Options>
 
             <Options>
-              <Option>
+              <Option
+                onClick={() =>
+                  Swal.fire({
+                    title: "Ops!",
+                    icon: "warning",
+                    text: "Essa funcionalidade não está disponível",
+                  })
+                }
+              >
                 <h1>Estacionamento</h1>
                 <div>
                   <IonIcon name="car"></IonIcon>

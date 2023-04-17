@@ -9,6 +9,9 @@ import IonIcon from "@reacticons/ionicons";
 import { toast } from "react-toastify";
 import LoadingCircle from "../../components/LoadingCircle";
 import { useNavigate } from "react-router-dom";
+import LogoutIcon from "@mui/icons-material/Logout";
+import Swal from "sweetalert2";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 export default function ResidentPage() {
   const [residentData, setResidentData] = useState<null | ResidentUser>(null);
@@ -37,6 +40,20 @@ export default function ResidentPage() {
     getResidentData();
   }, []);
 
+  function handleLogout() {
+    Swal.fire({
+      showCancelButton: true,
+      title: "Deseja sair?",
+      cancelButtonColor: "red",
+      confirmButtonColor: "#1877f2",
+    }).then((res) => {
+      if (res.isConfirmed) {
+        localStorage.clear();
+        navigate("/login");
+      }
+    });
+  }
+
   return (
     <BaseStructure>
       {loading && <LoadingCircle height={70} loading={loading} color="white" />}
@@ -46,19 +63,24 @@ export default function ResidentPage() {
           {residentData?.Apartament ? (
             <>
               <UserInfo>
-                <h1>Olá, {user.name}</h1>
-                <div>
+                <UserText>
+                  <div className="flex">
+                    <AccountCircleIcon fontSize="inherit" />
+                  </div>
+                </UserText>
+                <div className="text">
                   <p>
-                    <Bold>Prédio:</Bold>{" "}
-                    {residentData?.Apartament?.Building.name}{" "}
+                    <Bold>Apartamento: </Bold>
+                    {residentData?.Apartament.name}
                   </p>
                   <p>
-                    <Bold>Apartamento:</Bold> {residentData?.Apartament?.name}{" "}
+                    <Bold>Nome: </Bold>
+                    {user?.name}
                   </p>
-                  {residentData?.ParkingLot && (
-                    <p>Estacionamento: {residentData.ParkingLot?.name}</p>
-                  )}
                 </div>
+                <Logout onClick={() => handleLogout()}>
+                  <LogoutIcon fontSize="inherit" />
+                </Logout>
               </UserInfo>
               <ContainerOptions>
                 <Options>
@@ -103,26 +125,68 @@ export default function ResidentPage() {
   );
 }
 export const UserInfo = styled.div`
+  margin: 0 auto;
   display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
   padding-left: 50px;
-  color: white;
+  color: black;
+  background-color: white;
+  width: 93%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px 40px;
+  border-radius: 3px;
+  font-family: "Oswald", sans-serif;
 
   h1 {
-    font-family: "Varela", sans-serif;
     font-size: 30px;
+    margin-bottom: 10px;
   }
 
   p {
     margin-bottom: 10px;
   }
 
-  height: 30%;
+  .text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* width: 30%; */
+    font-size: 20px;
+  }
 `;
 
 export const Bold = styled.span`
   font-weight: bold;
+`;
+
+export const UserText = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 55px;
+  color: white;
+  background-color: ${MAIN_COLOR};
+  border-radius: 5px;
+  padding: 10px;
+`;
+
+export const Logout = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${MAIN_COLOR};
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 55px;
+
+  :hover {
+    cursor: pointer;
+    background-color: #232323;
+    transition: all 0.2s;
+  }
 `;
 
 export const ContainerOptions = styled.div`

@@ -78,7 +78,6 @@ export default function MaintenancePage() {
               <p>Nome: Luiz Fernando</p>
               <p>Apartamento: 101</p>
             </User>
-
             <FormDiv>
               <label htmlFor="description">Descreva o problema:</label>
               <textarea
@@ -103,7 +102,7 @@ const Wrap = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 100%;
+  height: 80vh;
 `;
 
 const PaperDiv = styled.main`
@@ -127,8 +126,9 @@ const PaperDiv = styled.main`
 const User = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 20px 0;
-  margin-left: 20px;
+  align-items: center;
+  /* margin: 20px 0; */
+  /* margin-left: 20px; */
   padding: 10px;
 `;
 
@@ -137,6 +137,7 @@ const FormDiv = styled.div`
   flex-direction: column;
   align-items: center;
   height: 100%;
+  padding-bottom: 20px;
 
   #description {
     width: 90%;

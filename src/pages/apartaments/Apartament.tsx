@@ -6,7 +6,6 @@ import LoadingCircle from "../../components/LoadingCircle";
 import { generateLink } from "../../helpers/api/apartaments";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 type ApartamentProps = ApartamentsInfo & {
@@ -54,7 +53,6 @@ export default function Apartament({
         title: "Envie o link abaixo para o morador",
         text: link,
       });
-      toast.success("Link copiado para a área de transferência!");
     } catch (err) {
       setInviteLoading(0);
       setDisableButtons(false);

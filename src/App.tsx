@@ -15,6 +15,8 @@ import AllRequestsPage from "./pages/requests/AllRequestsPage";
 import SpacesPage from "./pages/leisure-spaces/SpacesPage";
 import ResidentRoute from "./helpers/ResidentRoute";
 import AdminRoute from "./helpers/AdminRoute";
+import ProtectedRoute from "./helpers/ProtectedRoute";
+import SignUpPage from "./pages/authentication/SignUpPage";
 
 function App() {
   return (
@@ -26,7 +28,11 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path={"/login"} element={<AuthPage />} />
-            <Route path="/" element={<HomePage />} />
+            <Route path={"/sign-up"} element={<SignUpPage />} />
+
+            <Route element={<ProtectedRoute />}>
+              <Route path="/" element={<HomePage />} />
+            </Route>
 
             <Route element={<ResidentRoute />}>
               <Route path="/maintenance" element={<MaintenancePage />} />

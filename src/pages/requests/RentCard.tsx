@@ -6,9 +6,7 @@ import dayjs from "dayjs";
 type props = Partial<RentSpaces> & {};
 export default function RentCard({ LeisureSpace, createdAt, day_rent }: props) {
   return (
-    <CardContainer
-      transparent={dayjs(day_rent).format("DD") < dayjs().format("DD")}
-    >
+    <CardContainer transparent={dayjs(day_rent) < dayjs()}>
       <TitleDiv>
         <h1>{LeisureSpace?.name}</h1>
         <p>Dia de uso: {`${dayjs(day_rent).format("DD/MM/YYYY")}`}</p>

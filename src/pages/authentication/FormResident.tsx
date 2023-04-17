@@ -67,7 +67,9 @@ export default function FormResident() {
             "Entrar"
           )}
         </Button>
-        Não possui uma conta? Cadastre-se <Link to="a">aqui</Link>
+        <TextSignUp>
+          Não possui uma conta? Cadastre-se <Link to="/sign-up">aqui</Link>
+        </TextSignUp>
       </Form>
     </FormContainer>
   );
@@ -78,7 +80,7 @@ export const FormContainer = styled.div`
 `;
 
 export const Form = styled.form`
-  height: 200px;
+  height: fit-content;
   input {
     font-family: "Oswald";
     font-size: 20px;
@@ -89,4 +91,10 @@ export const Form = styled.form`
   a {
     color: white;
   }
+`;
+
+export const TextSignUp = styled.div`
+  width: 100%;
+  font-size: 15px;
+  margin-top: 10px;
 `;

@@ -7,6 +7,7 @@ import { generateLink } from "../../helpers/api/apartaments";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 type ApartamentProps = ApartamentsInfo & {
   isLoading: boolean;
@@ -25,6 +26,8 @@ export default function Apartament({
   disabled,
 }: ApartamentProps) {
   const [disableButtons, setDisableButtons] = useState(false);
+
+  const navigate = useNavigate();
 
   function calculateUserIcons() {
     let icons = [];
@@ -85,7 +88,10 @@ export default function Apartament({
         )}
       </GenerateLinkDiv>
 
-      <MaintenaceRequestsDiv disabled={disableButtons}>
+      <MaintenaceRequestsDiv
+        onClick={() => navigate("/requests")}
+        disabled={disableButtons}
+      >
         <IonIcon className="icon" name="build" />
         <p>Reparos: {maintenaceRequests}</p>
       </MaintenaceRequestsDiv>

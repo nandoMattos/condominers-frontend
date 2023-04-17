@@ -58,6 +58,7 @@ export default function AllRequestsPage() {
 
       {!loading && (
         <Main>
+          <Title>Notificações</Title>
           <Lists>
             <ListItemButton
               onClick={() => setOpennedMaintenance(!opennedMaintenance)}
@@ -82,6 +83,7 @@ export default function AllRequestsPage() {
                       solved={m.solved}
                       updatedAt={m.updatedAt}
                       apartamentId={m.apartamentId}
+                      createdAt={m.createdAt}
                     />
                   ))}
                 </ListWrapper>
@@ -109,6 +111,8 @@ export default function AllRequestsPage() {
                       description={m.description}
                       solved={m.solved}
                       updatedAt={m.updatedAt}
+                      username={m.User.name}
+                      createdAt={m.createdAt}
                     />
                   ))}
                 </ListWrapper>
@@ -134,4 +138,10 @@ const ListWrapper = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+`;
+
+const Title = styled.h1`
+  font-size: 50px;
+  margin: 30px;
+  font-family: "Oswald", sans-serif;
 `;

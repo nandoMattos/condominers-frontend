@@ -88,7 +88,7 @@ export default function OwnerPage() {
                   <IonIcon name="car"></IonIcon>
                 </div>
               </Option>
-              <Option>
+              <Option onClick={() => navigate("/spaces")}>
                 <h1>Espaços de lazer</h1>
                 <div>
                   <IonIcon name="pizza"></IonIcon>

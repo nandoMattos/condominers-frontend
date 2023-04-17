@@ -27,6 +27,9 @@ export type Reports = {
   solved: boolean;
   createdAt: Date;
   updatedAt: Date;
+  User: {
+    name: string
+  }
 }
 
 export type RentSpaces = {

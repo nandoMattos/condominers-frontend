@@ -10,10 +10,12 @@ import IonIcon from "@reacticons/ionicons";
 import Swal from "sweetalert2";
 import React from "react";
 import { Requests } from "./AllRequestsPage";
+import { toast } from "react-toastify";
 
 type props = Partial<MaintenanceRequests & Reports> & {
   requests: Requests;
   setRequests: React.Dispatch<React.SetStateAction<Requests | undefined>>;
+  username?: string;
 };
 
 export default function RequestCardGeneric({
@@ -21,10 +23,12 @@ export default function RequestCardGeneric({
   description,
   solved,
   updatedAt,
+  createdAt,
   Apartament,
   setRequests,
   requests,
   apartamentId,
+  username,
 }: props) {
   function maintenanceSolved() {
     const maintenances = requests.Maintenances;
@@ -55,7 +59,7 @@ export default function RequestCardGeneric({
   function handleClick() {
     Swal.fire({
       title: "Deseja marcar como feito?",
-      text: "Essa ação não pode ser desfeita.",
+      text: "Essa ação não poderá ser desfeita.",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
@@ -72,7 +76,7 @@ export default function RequestCardGeneric({
             reportSolved();
           }
         } catch (err) {
-          console.log(err);
+          toast("Algo deu errado, tente novamente mais tarde");
         }
       }
     });
@@ -82,22 +86,25 @@ export default function RequestCardGeneric({
     <CardContainer transparent={solved ? true : false}>
       <Title color={solved ? "green" : "#f0e111"}>
         <span>
-          <h1>Apartamento {Apartament?.name}</h1>
+          {apartamentId ? (
+            <h1>Apartamento {Apartament?.name}</h1>
+          ) : (
+            <h1>{username} (morador)</h1>
+          )}
         </span>
-        <p>Aberto em: {dayjs(updatedAt).format("DD/MM/YYYY")}</p>
+        <p>Aberto em: {dayjs(createdAt).format("DD/MM/YYYY")}</p>
       </Title>
       <ButtonDiv>
         <p id="desc">&quot;{description}&quot;</p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto cumque
-          velit aut, voluptate dicta porro illo atque rerum alias odit
-          recusandae quasi sequi repellendus possimus asdfasdad.
-        </p>
-        {!solved && (
+        {!solved ? (
           <button onClick={() => handleClick()}>
-            <span>Resolvido</span>{" "}
+            <span>Resolvido</span>
             <IonIcon className="bigger" name="checkmark-circle-outline" />
           </button>
+        ) : (
+          <p id="solvedText">
+            Resolvido em: {dayjs(updatedAt).format("DD/MM/YYYY")}
+          </p>
         )}
       </ButtonDiv>
     </CardContainer>
@@ -112,6 +119,7 @@ export const CardContainer = styled.div<{ transparent: boolean }>`
   padding: 10px;
   font-size: 15px;
   opacity: ${({ transparent }) => (transparent ? "60%" : "none")};
+  border-radius: 3px;
 
   #desc {
     padding-top: 10px;
@@ -149,6 +157,7 @@ const ButtonDiv = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
+
   p {
     margin-bottom: 10px;
   }
@@ -171,5 +180,9 @@ const ButtonDiv = styled.div`
 
   .bigger {
     font-size: 20px;
+  }
+
+  #solvedText {
+    font-size: 12px;
   }
 `;

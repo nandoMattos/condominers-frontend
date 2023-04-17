@@ -2,7 +2,6 @@ import styled from "styled-components";
 import Header from "../../components/Header";
 import BaseStructure from "../home/BaseStructure";
 import LoadingCircle from "../../components/LoadingCircle";
-import { MAIN_COLOR } from "../../assets/colors";
 import { useEffect, useState } from "react";
 import { getAllApartaments } from "../../helpers/api/apartaments";
 import { ApartamentsInfo } from "../../protocols";
@@ -40,9 +39,7 @@ export default function Apartaments() {
 
   return (
     <BaseStructure>
-      {loading && (
-        <LoadingCircle height={70} loading={loading} color={MAIN_COLOR} />
-      )}
+      {loading && <LoadingCircle height={70} loading={loading} color="white" />}
 
       {!loading && (
         <Main>

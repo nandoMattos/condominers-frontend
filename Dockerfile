@@ -1,4 +1,4 @@
-FROM node
+FROM node:18.14
 
 WORKDIR /tmp/react
 
@@ -17,5 +17,3 @@ RUN mv dist/* /var/www/html
 WORKDIR /
 
 RUN rm -rf /tmp/react
-
-CMD ["npm", "run", "dev"]

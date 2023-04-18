@@ -1,7 +1,5 @@
 dist
 coverage
 node_modules
-.env*
-!.env.example
 yarn.lock
 .vscode

@@ -32,6 +32,10 @@ function App() {
 
             <Route element={<ProtectedRoute />}>
               <Route path="/" element={<HomePage />} />
+              <Route
+                path="/apartaments/invitation/:jwToken"
+                element={<ApartamentInvite />}
+              />
             </Route>
 
             <Route element={<ResidentRoute />}>
@@ -39,20 +43,12 @@ function App() {
               <Route path="/rent-space" element={<RentSpacePage />} />
               <Route path="/my-requests" element={<MyRequestsPage />} />
               <Route path="/report" element={<ReportPage />} />
-              <Route
-                path="/apartaments/invitation/:jwToken"
-                element={<ApartamentInvite />}
-              />
             </Route>
 
             <Route element={<AdminRoute />}>
               <Route path={"/requests"} element={<AllRequestsPage />} />
               <Route path="/apartaments" element={<Apartaments />} />
               <Route path={"/spaces"} element={<SpacesPage />} />
-              <Route
-                path="/apartaments/invitation/:jwToken"
-                element={<ApartamentInvite />}
-              />
             </Route>
           </Routes>
         </BrowserRouter>
